@@ -1,7 +1,7 @@
-import { Heading } from "./components/heading";
-import { MaxWidthWrapper } from "./components/max-width-wrapper";
+import { Heading } from "../../components/heading";
+import { MaxWidthWrapper } from "../../components/max-width-wrapper";
 import { Check } from "lucide-react"
-import { ShinyButton } from "./components/shinny-button";
+import { ShinyButton } from "../../components/shinny-button";
 
 const Page = () => {
   return (
@@ -17,10 +17,10 @@ const Page = () => {
                 <span className="relative bg-gradient-to-r from-brand-700 to-brand-800 text-transparent bg-clip-text">Delivered to Your Discord</span>
               </Heading>
             </div>
-            <p className="text-base/7 text-gray-600 max-w-prose text-pretty"><span className="text-2xl underline">S</span>aleor is the easiest way to monitor your SaaS, Get instant notifications for <span className="font-semibold text-gray-700">sales, new users, or any other event </span>
+            <p className="text-base/7 text-gray-600 max-w-prose text-pretty">P<span className="text-lg underline">o</span>Panda is the easiest way to monitor your SaaS, Get instant notifications for <span className="font-semibold text-gray-700">sales, new users, or any other event </span>
               sent directly to your Discord.
             </p>
-            
+
             <ul className="space-y-2 text-base text-gray-700 text-left flex flex-col sm:items-start">
               {[
                 "Real-time Discord alerts for critical events",
@@ -28,14 +28,14 @@ const Page = () => {
                 "Track sales, new users, or any other event",
               ].map((item, index) => (
                 <li key={index} className="flex gap-1.5 items-center text-left">
-                  <Check className="size-5 shrink-0 text-brand-700"/>
+                  <Check className="size-5 shrink-0 text-brand-700" />
                   {item}
                 </li>
               ))}
             </ul>
 
             <div className="w-full max-w-80">
-              <ShinyButton className="relative z-10 h-14 w-full text-base shadow-lg transition-shadow duration-300 hover:shadow-xl">Start Today For Free!</ShinyButton>
+              <ShinyButton href="/sign-up" className="relative z-10 h-14 w-full text-base shadow-lg transition-shadow duration-300 hover:shadow-xl">Start Today For Free!</ShinyButton>
             </div>
           </div>
         </MaxWidthWrapper>
