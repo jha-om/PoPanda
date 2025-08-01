@@ -3,6 +3,8 @@ import { MaxWidthWrapper } from "../../components/max-width-wrapper";
 import { Check } from "lucide-react"
 import { ShinyButton } from "../../components/shinny-button";
 import { MockDiscordUI } from "@/components/mock-discord-ui";
+import { AnimatedList } from "@/components/magicui/animated-list";
+import { DiscordMessage } from "@/components/discord-message";
 
 const Page = () => {
   return (
@@ -18,7 +20,7 @@ const Page = () => {
                 <span className="relative bg-gradient-to-r from-brand-700 to-brand-800 text-transparent bg-clip-text">Delivered to Your Discord</span>
               </Heading>
             </div>
-            <p className="text-base/7 text-gray-600 max-w-prose text-pretty">P<span className="text-lg underline">o</span>Panda is the easiest way to monitor your SaaS, Get instant notifications for <span className="font-semibold text-gray-700">sales, new users, or any other event </span>
+            <p className="text-base/7 text-gray-600 max-w-prose text-pretty">P<span className="text-sm underline">o</span>Panda is the easiest way to monitor your SaaS, Get instant notifications for <span className="font-semibold text-gray-700">sales, new users, or any other event </span>
               sent directly to your Discord.
             </p>
 
@@ -45,7 +47,51 @@ const Page = () => {
         <div className="absolute inset-x-0 bottom-24 top-24 bg-brand-700" />
         <MaxWidthWrapper className="relative">
           <div className="-m-2 rounded-xl bg-gray-900/5 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-              <MockDiscordUI />
+            <MockDiscordUI>
+              <AnimatedList>
+                <DiscordMessage
+                  avatarSrc="/brand-asset-profile-picture.png"
+                  avatarAlt="PoPanda"
+                  username="PoPanda"
+                  timestamp="today at 3:45 AM"
+                  badgeText="Signup"
+                  badgeColor="#43b581"
+                  title="👤 New user signed up"
+                  content={{
+                    name: "Jarvis",
+                    email: "jarvis@tony.stark"
+                  }}
+                />
+                <DiscordMessage
+                  avatarSrc="/brand-asset-profile-picture.png"
+                  avatarAlt="PoPanda"
+                  username="PoPanda"
+                  timestamp="today at 3:45 AM"
+                  badgeText="Purchase"
+                  badgeColor="#faa61a"
+                  title="💸 Payment received"
+                  content={{
+                    amount: "$69.00",
+                    name: "makri man",
+                    email: "spider@peter.parker",
+                    plan: "PRO",
+                  }}
+                />
+                <DiscordMessage
+                  avatarSrc="/brand-asset-profile-picture.png"
+                  avatarAlt="PoPanda"
+                  username="PoPanda"
+                  timestamp="today at 5:25 AM"
+                  badgeText="MileStone"
+                  badgeColor="#5865f2"
+                  title="🚀 Revenue Milestone Acheived"
+                  content={{
+                    recurringRevenue: "$10.000",
+                    growth: "+60%",
+                  }}
+                />
+              </AnimatedList>
+            </MockDiscordUI>
           </div>
         </MaxWidthWrapper>
       </section>
