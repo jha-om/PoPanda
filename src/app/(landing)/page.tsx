@@ -29,7 +29,7 @@ const Page = () => {
   return (
     <>
       {/* hero section */}
-      <section className="relative py-24 sm:py-32 bg-brand-25">
+      <section className="relative py-24 sm:py-32">
         <MaxWidthWrapper className="text-center">
           <div className="relative mx-auto text-center flex flex-col items-center gap-10">
             <div>
@@ -64,7 +64,7 @@ const Page = () => {
       </section>
 
       {/* discord ui section */}
-      <section className="relative bg-brand-25 pb-4">
+      <section className="relative pb-4">
         <div className="absolute inset-x-0 bottom-24 top-24 bg-brand-700" />
         <div className="relative mx-auto">
           <MaxWidthWrapper className="relative">
@@ -120,7 +120,7 @@ const Page = () => {
       </section>
 
       {/* bento grid section -- features */}
-      <section className="relative py-24 sm:py-32 bg-brand-25">
+      <section className="relative py-24 sm:py-32">
         <MaxWidthWrapper className="flex flex-col items-center gap-16 sm:gap-20">
           <div>
             <h2 className="text-center text-base/7 font-semibold text-brand-600">
@@ -268,7 +268,7 @@ const Page = () => {
       </section>
 
       {/* customer review section */}
-      <section className="relative py-24 sm:py-32 bg-white">
+      <section className="relative py-24 sm:py-32">
         <MaxWidthWrapper className="flex flex-col items-center gap-16 sm:gap-20">
           <div>
             <h2 className="text-center text-base/7 font-semibold text-brand-600">
