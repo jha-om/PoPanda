@@ -16,7 +16,6 @@ const Page = () => {
               <Heading>
                 <span>real-time saas insights</span>
                 <br />
-                {/* TODO: add slack as well. */}
                 <span className="relative bg-gradient-to-r from-brand-700 to-brand-800 text-transparent bg-clip-text">Delivered to Your Discord</span>
               </Heading>
             </div>
@@ -43,59 +42,89 @@ const Page = () => {
           </div>
         </MaxWidthWrapper>
       </section>
+
       <section className="relative bg-brand-25 pb-4">
         <div className="absolute inset-x-0 bottom-24 top-24 bg-brand-700" />
-        <MaxWidthWrapper className="relative">
-          <div className="-m-2 rounded-xl bg-gray-900/5 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
-            <MockDiscordUI>
-              <AnimatedList>
-                <DiscordMessage
-                  avatarSrc="/brand-asset-profile-picture.png"
-                  avatarAlt="PoPanda"
-                  username="PoPanda"
-                  timestamp="today at 3:45 AM"
-                  badgeText="Signup"
-                  badgeColor="#43b581"
-                  title="👤 New user signed up"
-                  content={{
-                    name: "Jarvis",
-                    email: "jarvis@tony.stark"
-                  }}
-                />
-                <DiscordMessage
-                  avatarSrc="/brand-asset-profile-picture.png"
-                  avatarAlt="PoPanda"
-                  username="PoPanda"
-                  timestamp="today at 3:45 AM"
-                  badgeText="Purchase"
-                  badgeColor="#faa61a"
-                  title="💸 Payment received"
-                  content={{
-                    amount: "$69.00",
-                    name: "makri man",
-                    email: "spider@peter.parker",
-                    plan: "PRO",
-                  }}
-                />
-                <DiscordMessage
-                  avatarSrc="/brand-asset-profile-picture.png"
-                  avatarAlt="PoPanda"
-                  username="PoPanda"
-                  timestamp="today at 5:25 AM"
-                  badgeText="MileStone"
-                  badgeColor="#5865f2"
-                  title="🚀 Revenue Milestone Acheived"
-                  content={{
-                    recurringRevenue: "$10.000",
-                    growth: "+60%",
-                  }}
-                />
-              </AnimatedList>
-            </MockDiscordUI>
+        <div className="relative mx-auto">
+          <MaxWidthWrapper className="relative">
+            <div className="-m-2 rounded-xl bg-gray-900/5 p-2 ring-1 ring-inset ring-gray-900/10 lg:-m-4 lg:rounded-2xl lg:p-4">
+              <MockDiscordUI>
+                <AnimatedList>
+                  <DiscordMessage
+                    avatarSrc="/brand-asset-profile-picture.png"
+                    avatarAlt="PoPanda"
+                    username="PoPanda"
+                    timestamp="today at 3:45 AM"
+                    badgeText="Signup"
+                    badgeColor="#43b581"
+                    title="👤 New user signed up"
+                    content={{
+                      name: "Jarvis",
+                      email: "jarvis@tony.stark"
+                    }}
+                  />
+                  <DiscordMessage
+                    avatarSrc="/brand-asset-profile-picture.png"
+                    avatarAlt="PoPanda"
+                    username="PoPanda"
+                    timestamp="today at 3:45 AM"
+                    badgeText="Purchase"
+                    badgeColor="#faa61a"
+                    title="💸 Payment received"
+                    content={{
+                      amount: "$69.00",
+                      name: "makri man",
+                      email: "spider@peter.parker",
+                      plan: "PRO",
+                    }}
+                  />
+                  <DiscordMessage
+                    avatarSrc="/brand-asset-profile-picture.png"
+                    avatarAlt="PoPanda"
+                    username="PoPanda"
+                    timestamp="today at 5:25 AM"
+                    badgeText="MileStone"
+                    badgeColor="#5865f2"
+                    title="🚀 Revenue Milestone Acheived"
+                    content={{
+                      recurringRevenue: "$10.000",
+                      growth: "+60%",
+                    }}
+                  />
+                </AnimatedList>
+              </MockDiscordUI>
+            </div>
+          </MaxWidthWrapper>
+        </div>
+      </section>
+
+      <section className="relative py-24 sm:py-32 bg-brand-25">
+        <MaxWidthWrapper className="flex flex-col items-center gap-16 sm:gap-20">
+          <div>
+            <h2 className="text-center text-base/7 font-semibold text-brand-600">
+              Intuitive Monitoring
+            </h2>
+            <Heading>Stay ahead with real-time insights</Heading>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-3 lg:grid-rows-2">
+            {/* first bento grid element */}
+            <div className="relative lg:row-span-2">
+              <div className="absolute inset-px rounded-lg bg-white lg:roudned-l-[2rem]" />
+              <div className="relative flex h-full flex-col overflow-hidden rounded-[calc(theme(borderRadius.lg)+1px)] lg:rounded-l-[calc(2rem+1px)]">
+                <div className="px-8 pb-3 pt-8 sm:px-10 sm:pb-0 sm:pt-10">
+                  <p className="mt-2 text-lg/7 font-medium tracking-tight text-brand-950 max-lg:text-center">
+                    Real-time notifications
+                  </p>
+                  <p className="mt-2 max-w-lg text-sm/6 text-gray-600 max-lg:text-center">
+                    Get notified about critical events the moment they happen, no matter if you're at home or somewhere else.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </MaxWidthWrapper>
       </section>
-      <section></section>
       <section></section>
     </>
   )
