@@ -1,14 +1,14 @@
 import { Heading } from "../../components/heading";
 import { MaxWidthWrapper } from "../../components/max-width-wrapper";
-import { Check } from "lucide-react"
+import { Check, Star } from "lucide-react"
 import { ShinyButton } from "../../components/shinny-button";
 import { MockDiscordUI } from "@/components/mock-discord-ui";
 import { AnimatedList } from "@/components/magicui/animated-list";
 import { DiscordMessage } from "@/components/discord-message";
 import Image from "next/image";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { style } from 'react-syntax-highlighter/dist/esm/styles/prism'
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { Icons } from "@/components/icons";
 
 const Page = () => {
   const codeSnippet = `await fetch("http://localhost:3000/api/v1/events", {
@@ -28,7 +28,7 @@ const Page = () => {
 
   return (
     <>
-      {/* hero section */};
+      {/* hero section */}
       <section className="relative py-24 sm:py-32 bg-brand-25">
         <MaxWidthWrapper className="text-center">
           <div className="relative mx-auto text-center flex flex-col items-center gap-10">
@@ -63,7 +63,7 @@ const Page = () => {
         </MaxWidthWrapper>
       </section>
 
-      {/* discord ui section */};
+      {/* discord ui section */}
       <section className="relative bg-brand-25 pb-4">
         <div className="absolute inset-x-0 bottom-24 top-24 bg-brand-700" />
         <div className="relative mx-auto">
@@ -119,7 +119,7 @@ const Page = () => {
         </div>
       </section>
 
-      {/* bento grid section -- features */};
+      {/* bento grid section -- features */}
       <section className="relative py-24 sm:py-32 bg-brand-25">
         <MaxWidthWrapper className="flex flex-col items-center gap-16 sm:gap-20">
           <div>
@@ -231,13 +231,7 @@ const Page = () => {
                     <div className="flex bg-gray-800/40 ring-1 ring-white/5">
                       <div className="-mb-px flex text-sm/6 font-medium text-gray-400">
                         <div className="flex items-center border-b border-r border-b-white/20 border-r-white/20 bg-white/5 px-4 py-2 text-white">
-                          <svg viewBox="0 0 256 256" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="16px" height="16px">
-                            <g>
-                              <path d="M0,0 L256,0 L256,256 L0,256 L0,0 Z" fill="#F7DF1E"></path>
-                              <path d="M67.311746,213.932292 L86.902654,202.076241 C90.6821079,208.777346 94.1202286,214.447137 102.367086,214.447137 C110.272203,214.447137 115.256076,211.354819 115.256076,199.326883 L115.256076,117.528787 L139.313575,117.528787 L139.313575,199.666997 C139.313575,224.58433 124.707759,235.925943 103.3984,235.925943 C84.1532952,235.925943 72.9819429,225.958603 67.3113397,213.93026" fill="#000000"></path>
-                              <path d="M152.380952,211.354413 L171.969422,200.0128 C177.125994,208.433981 183.827911,214.619835 195.684368,214.619835 C205.652521,214.619835 212.009041,209.635962 212.009041,202.762159 C212.009041,194.513676 205.479416,191.592025 194.481168,186.78207 L188.468419,184.202565 C171.111213,176.81473 159.597308,167.53534 159.597308,147.944838 C159.597308,129.901308 173.344508,116.153295 194.825752,116.153295 C210.119924,116.153295 221.117765,121.48094 229.021663,135.400432 L210.29059,147.428775 C206.166146,140.040127 201.699556,137.119289 194.826159,137.119289 C187.78047,137.119289 183.312254,141.587098 183.312254,147.428775 C183.312254,154.646349 187.78047,157.568406 198.089956,162.036622 L204.103924,164.614095 C224.553448,173.378641 236.067352,182.313448 236.067352,202.418387 C236.067352,224.071924 219.055137,235.927975 196.200432,235.927975 C173.860978,235.927975 159.425829,225.274311 152.381359,211.354413" fill="#000000"></path>
-                            </g>
-                          </svg>
+                          <Icons.javascript />
                           <span className="ml-1.5">popanda.js</span>
                         </div>
                       </div>
@@ -273,9 +267,84 @@ const Page = () => {
         </MaxWidthWrapper>
       </section>
 
-      {/* customer review section */};
-      <section>
+      {/* customer review section */}
+      <section className="relative py-24 sm:py-32 bg-white">
+        <MaxWidthWrapper className="flex flex-col items-center gap-16 sm:gap-20">
+          <div>
+            <h2 className="text-center text-base/7 font-semibold text-brand-600">
+              Real-World Experiences
+            </h2>
+            <Heading className="text-center">What our customers say</Heading>
+          </div>
 
+          <div className="mx-auto grid max-w-2xl grid-cols-1 px-4 lg:mx-0 lg:max-w-none lg:grid-cols-2 divide-gray-200">
+            {/* first customer review */}
+            <div className="flex flex-auto flex-col gap-4 bg-brand-25 p-6 sm:p-8 lg:p-16 rounded-t-[2rem] lg:rounded-tr-none lg:rounded-l-[2rem]">
+              <div className="flex gap-0.5 mb-2 justify-center lg:justify-start">
+                <Star className="size-5 text-brand-600 fill-brand-600" />
+                <Star className="size-5 text-brand-600 fill-brand-600" />
+                <Star className="size-5 text-brand-600 fill-brand-600" />
+                <Star className="size-5 text-brand-600 fill-brand-600" />
+              </div>
+
+              <p className="text-base sm:text-lg lg:text-lg/8 font-medium tracking-normal text-brand-950 text-center lg:text-left text-pretty">
+                PoPanda is trully a game-changer for me, it really pushes all the events in real-time, super satisfying and easy to use.
+              </p>
+
+              <div className="flex flex-col justify-center lg:justify-start sm:flex-row items-center sm:items-start gap-4 mt-2">
+                <Image
+                  src="/user-2.png"
+                  className="rounded-full object-cover"
+                  width={48}
+                  height={48}
+                  alt="Random User"
+                />
+                <div className="flex flex-col items-center sm:items-start">
+                  <p className="font-semibold flex items-center">
+                    Girlie Gamora
+                    <Icons.verificationBadge className="size-4 inline-block ml-1" />
+                  </p>
+                  <p className="text-sm text-gray-600">@moralie</p>
+                </div>
+              </div>
+            </div>
+
+            {/* second customer review */}
+            <div className="flex flex-auto flex-col gap-4 bg-brand-25 p-6 sm:p-8 lg:p-16 rounded-br-[2rem] sm:ml-2.5 max-sm:mt-3 max-sm:rounded-bl-[2rem] lg:rounded-r-[2rem]">
+              <div className="flex gap-0.5 mb-2 justify-center lg:justify-start">
+                <Star className="size-5 text-brand-600 fill-brand-600" />
+                <Star className="size-5 text-brand-600 fill-brand-600" />
+                <Star className="size-5 text-brand-600 fill-brand-600" />
+                <Star className="size-5 text-brand-600 fill-brand-600" />
+                <Star className="size-5 text-brand-600 fill-brand-600" />
+              </div>
+
+              <p className="text-base sm:text-lg lg:text-lg/8 font-medium tracking-normal text-brand-950 text-center lg:text-left text-pretty">
+                Why the hell this thing is not created earlier by someone, a simple way to see how we&apos;re doing day-to-day, such a cool thing PoPanda is, absolutely loved the product.
+              </p>
+
+              <div className="flex flex-col justify-center lg:justify-start sm:flex-row items-center sm:items-start gap-4 mt-2">
+                <Image
+                  src="/user-1.png"
+                  className="rounded-full object-cover"
+                  width={48}
+                  height={48}
+                  alt="Random User"
+                />
+                <div className="flex flex-col items-center sm:items-start">
+                  <p className="font-semibold flex items-center">
+                    Sanskaari Stark
+                    <Icons.verificationBadge className="size-4 inline-block ml-1" />
+                  </p>
+                  <p className="text-sm text-gray-600">@sataark</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <ShinyButton href="/sign-up" className="relative z-10 h-14 w-full max-w-xs text-base shadow-lg transition-shadow duration-300 hover:shadow-xl">
+            Start For Free Today
+          </ShinyButton>
+        </MaxWidthWrapper>
       </section>
     </>
   )
