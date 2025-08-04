@@ -11,11 +11,92 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  name      String
+enum Plan {
+  FREE
+  PRO
+}
+
+enum DelieveryStatus {
+  PENDING
+  DELIVERED
+  FAILED
+}
+
+model User {
+  id         String  @id @default(cuid())
+  // like in our case clerk gives us the auth id
+  externalId String? @unique
+  quotaLimit Int
+  plan       Plan    @default(FREE)
+  email      String  @unique
+  apiKey     String  @unique @default(cuid())
+  discordId  String?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([name])
+  EventCategories EventCategory[]
+  Events          Event[]
+  Quota           Quota[]
+
+  @@index([email, apiKey])
+}
+
+model EventCategory {
+  id    String  @unique @default(cuid())
+  name  String
+  color Int
+  emoji String?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  Event Event[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // what this does is, that no user should have same events like for eg., 
+  // user1 and user2 can have sale events, but user1 can't have 2 sales events or 2 signups events => 
+  // once a user is signed up, that means this user again if registers with the same credential
+  // can't be treated as different user or new user;
+  @@unique([name, userId])
+}
+
+// now each event category will have multiple events like a user can get multiple sales.
+// this is 1:n mapping in dbms;
+model Event {
+  id               String @unique @default(cuid())
+  fields           Json
+  formattedMessage String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  name            String
+  delieveryStatus DelieveryStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  EventCategory   EventCategory? @relation(fields: [eventCategoryId], references: [id])
+  eventCategoryId String?
+
+  @@index([createdAt])
+}
+
+// to limit the quota for each user such that they purchases the service as it's a SaaS;
+model Quota {
+  id     String @unique @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+
+  year Int
+  month Int 
+  // at the each month start this count quota resets like a credit based system
+  count Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
 }
