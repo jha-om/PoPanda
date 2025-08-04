@@ -1,17 +1,37 @@
+"use client";
+
 import { Heading } from "@/components/heading";
 import { LoadingSpinner } from "@/components/loading-spinner";
 import { client } from "@/lib/client";
 import { useQuery } from "@tanstack/react-query";
 import { LucideProps } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 // sync auth status to the db's;
 const Page = () => {
-    // const { } = useQuery({
-    //     queryKey: ["123"],
-    //     queryFn: () => {
-            
-    //     }
-    // })
+    const router = useRouter();
+
+    const { data } = useQuery({
+        queryKey: ["get-database-sync-status"],
+        queryFn: async () => {
+            const res = await client.auth.getDatabaseSyncStatus.$get();
+            return await res.json();
+        },
+        // now we need to show the loading spin until the new user created is fetched into the db;
+        refetchInterval: (query) => {
+            // meaning if we get back that the user created is synced succesfully then 
+            // will not show the loading spinner to the user, 
+            // else we take 1000ms of time to do the operation of saving;
+            return query.state.data?.isSynced ? false : 1000
+        }
+    })
+
+    useEffect(() => {
+        if (data?.isSynced) {
+            router.push("/dashboard")
+        }
+    }, [data, router])
     return (
         <div className="flex w-full min-h-[94vh] flex-1 items-center justify-center px-4">
             <BackgroundPattern className="absolute inset-0 left-1/2 z-0 -translate-x-1/2 opacity-75" />
