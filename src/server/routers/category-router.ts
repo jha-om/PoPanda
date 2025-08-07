@@ -2,6 +2,7 @@ import { db } from "@/db";
 import { router } from "../__internals/router";
 import { privateProcedure } from "../procedures";
 import { startOfMonth } from "date-fns"
+import { z } from "zod";
 
 export const categoryRouter = router({
     getEventCategories: privateProcedure.query(async ({ c, ctx }) => {
@@ -42,7 +43,7 @@ export const categoryRouter = router({
                     })
                     return fieldNames.size;
                 }),
-                
+
                 // db call to count all the total events happened up until now;
                 db.event.count({
                     where: {
@@ -65,12 +66,30 @@ export const categoryRouter = router({
                 uniqueFieldCount,
                 eventsCount,
                 lastEvent: lastEvent?.createdAt || null,
-            } 
+            }
         }))
 
 
         return c.superjson({
             categories: categoriesWithcounts
         });
+    }),
+    // if name is not provided from whereever i'm calling this method, then the request will automatically gets rejected; 
+    deleteCategory: privateProcedure.input(z.object({
+        name: z.string()
+    })).mutation(async ({ c, input, ctx }) => {
+        const { name } = input;
+
+        await db.eventCategory.delete({
+            where: {
+                // how this name_userId comes, look in the schema.prisma file
+                // in the eventCategory, there is a unique identifier with name and userId
+                // so here both has to be unique not individually;
+                name_userId: {name, userId: ctx.user.id}
+            }
+        })
+        return c.json({
+            success: true,
+        })
     })
 })
