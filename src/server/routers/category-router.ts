@@ -3,6 +3,8 @@ import { router } from "../__internals/router";
 import { privateProcedure } from "../procedures";
 import { startOfMonth } from "date-fns"
 import { z } from "zod";
+import { CATEGORY_NAME_VALIDATOR } from "@/lib/validator/category-validator";
+import { parseColor } from "@/lib/utils";
 
 export const categoryRouter = router({
     getEventCategories: privateProcedure.query(async ({ c, ctx }) => {
@@ -85,11 +87,39 @@ export const categoryRouter = router({
                 // how this name_userId comes, look in the schema.prisma file
                 // in the eventCategory, there is a unique identifier with name and userId
                 // so here both has to be unique not individually;
-                name_userId: {name, userId: ctx.user.id}
+                name_userId: { name, userId: ctx.user.id }
             }
         })
         return c.json({
             success: true,
+        })
+    }),
+
+    //  to create a router for adding category;
+    addCategory: privateProcedure.input(z.object({
+        name: CATEGORY_NAME_VALIDATOR,
+        color: z.
+            string().
+            min(1, "Color is required").
+            regex(/^#[0-9A-F]{6}$/i, "Invalid color format"),
+        emoji: z.string().emoji("Invalid emoji").optional(),
+    })).mutation(async ({ c, ctx, input }) => {
+        const { user } = ctx;
+        const { color, name, emoji } = input;
+
+        // todo: add paid plan logic;
+
+        const eventCategory = await db.eventCategory.create({
+            data: {
+                name: name.toLowerCase(),
+                // here the input is string, but we're in schema expecting a int from color;
+                color: parseColor(color),
+                emoji,
+                userId: user.id
+            }
+        })
+        return c.json({
+            eventCategory
         })
     })
 })
