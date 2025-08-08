@@ -4,7 +4,7 @@ import { buttonVariants } from "@/components/ui/button"
 import { Modal } from "@/components/ui/modal"
 import { cn } from "@/utils"
 import { UserButton } from "@clerk/nextjs"
-import { Gem, Home, Key, LucideIcon, Menu, Settings, X } from "lucide-react"
+import { Gem, Home, Key, LucideIcon, Menu, Settings } from "lucide-react"
 import Link from "next/link"
 import { PropsWithChildren, useState } from "react"
 
@@ -45,7 +45,7 @@ const Sidebar = ({ onClose }: { onClose?: () => void }) => {
     return (
         <div className="space-y-4 md:space-y-6 relative z-20 flex flex-col h-full">
             {/* logo */}
-            <p className="hidden sm:block text-lg/7 font-semibold text-brand-900">
+            <p className="hidden md:block text-lg/7 font-semibold text-brand-900">
                 P<span className="underline">o</span><span className="text-brand-700">Panda</span>
             </p>
 
@@ -140,7 +140,6 @@ const Layout = ({ children }: PropsWithChildren) => {
                             aria-label="Close modal"
                             onClick={() => setIsDrawerOpen(false)}
                         >
-                            <X className="size-6" />
                         </button>
                     </div>
 

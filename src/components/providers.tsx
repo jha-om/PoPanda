@@ -19,7 +19,7 @@ export const Providers = ({ children }: PropsWithChildren) => {
               errorMessage = "An unknown error occurred."
             }
             // toast notify user, log as an example
-            console.log(errorMessage)
+            // console.log(errorMessage)
           },
         }),
       })

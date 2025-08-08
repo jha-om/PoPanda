@@ -8,6 +8,7 @@ import { format, formatDistanceToNow } from "date-fns"
 import { ArrowRight, BarChart2, Clock, Database, Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { DashboardEmptyContent } from "./dashboard-empty-content";
 
 export const DashboardPageContent = () => {
     // we will store the state of "are u sure u want to delete this event after a user clicks on delete icon";
@@ -45,7 +46,9 @@ export const DashboardPageContent = () => {
     }
 
     if (!categories || categories.length === 0) {
-        return <div>empty state</div>
+        return (
+            <DashboardEmptyContent />
+        )
     }
     return (
         <>
