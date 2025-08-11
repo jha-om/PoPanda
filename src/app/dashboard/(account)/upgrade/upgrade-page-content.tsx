@@ -40,7 +40,6 @@ export const UpgradePageContent = ({ plan }: { plan: Plan }) => {
         }
     })
 
-    console.log("usageData", usageData);
 
     return (
         <div className="max-w-3xl flex flex-col gap-8">
