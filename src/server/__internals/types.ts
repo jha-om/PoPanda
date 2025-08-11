@@ -1,7 +1,6 @@
 import { Context, TypedResponse } from "hono"
 import { z } from "zod"
 
-import { httpHandler } from "@/server"
 import { Variables } from "hono/types"
 import { Bindings } from "../env"
 
@@ -28,5 +27,3 @@ export type MutationOperation<Schema extends Record<string, unknown>, ZodInput =
   handler: <Input, Output>({ ctx, c }: { ctx: Input; c: Context; input: ZodInput }) => Promise<TypedResponse<Output>>
   middlewares: Middleware<any>[]
 }
-
-export { httpHandler as GET, httpHandler as POST }

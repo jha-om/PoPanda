@@ -1,5 +1,8 @@
-import { httpHandler } from "@/server"
+import { app } from "@/server";
 
 export const runtime = "edge"
 
-export { httpHandler as GET, httpHandler as POST }
+const handler = (req: Request) => app.fetch(req);
+
+export const GET = handler;
+export const POST = handler;

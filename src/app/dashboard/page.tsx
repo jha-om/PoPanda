@@ -10,9 +10,9 @@ import { createCheckoutSession } from "@/lib/polar";
 import { PaymentSuccessModal } from "@/components/payment-success-modal";
 
 interface PageProps {
-    searchParams: {
+    searchParams: Promise<{
         [key: string]: string | string[] | undefined;
-    }
+    }>
 }
 
 const Page = async ({ searchParams }: PageProps) => {
@@ -32,7 +32,7 @@ const Page = async ({ searchParams }: PageProps) => {
         redirect("/sign-in");
     }
 
-    const intent = searchParams.intent;
+    const intent = (await searchParams).intent;
 
     if (intent === "upgrade") {
         const session = await createCheckoutSession({
@@ -45,7 +45,7 @@ const Page = async ({ searchParams }: PageProps) => {
         }
     }
 
-    const success = searchParams.success;
+    const success = (await searchParams).success;
 
     return (
         <>
