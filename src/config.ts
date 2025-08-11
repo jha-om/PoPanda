@@ -1,5 +1,5 @@
 export const FREE_QUOTA = {
-    maxEventsPerMonth: 200,
+    maxEventsPerMonth: 150,
     maxEventsCategories: 3
 };
 

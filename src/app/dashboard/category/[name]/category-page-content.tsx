@@ -7,8 +7,8 @@ import { Event, EventCategory } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
 import { isAfter, isToday, startOfMonth, startOfWeek } from "date-fns"
 import { ArrowUpDown, BarChart } from "lucide-react"
-import { useSearchParams } from "next/navigation"
-import { useMemo, useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { useEffect, useMemo, useState } from "react"
 import { EmptyCategoryState } from "./empty-category-state"
 import { Column, ColumnDef, ColumnFiltersState, flexRender, getCoreRowModel, getFilteredRowModel, getPaginationRowModel, getSortedRowModel, Row, SortingState, useReactTable } from "@tanstack/react-table"
 import { Button } from "@/components/ui/button"
@@ -22,8 +22,10 @@ interface CategoryPageContentProps {
 }
 export const CategoryPageContent = ({ hasEvents: initialHasEvents, category }: CategoryPageContentProps) => {
     // best practice -> all put pageIndex and pageSize into the url;
+    const router = useRouter()
 
     const searchParams = useSearchParams();
+
     const page = parseInt(searchParams.get("page") || "1", 10);
     const limit = parseInt(searchParams.get("limit") || "30", 10);
 
@@ -32,6 +34,15 @@ export const CategoryPageContent = ({ hasEvents: initialHasEvents, category }: C
         pageSize: limit,
     })
     const [activeTab, setActiveTab] = useState<"today" | "week" | "month">("today");
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(window.location.search)
+        searchParams.set("page", (pagination.pageIndex + 1).toString())
+        searchParams.set("limit", pagination.pageSize.toString())
+        router.push(`?${searchParams.toString()}`, { scroll: false })
+    }, [pagination, router]);
+
+
 
     // why initialHasEvents -> wherever we're calling this categorypagecontent is rendering all the content beforehand on server side, and then sending it to the client with intractivity
     // that's why huge and first time seeing this things;
@@ -121,50 +132,66 @@ export const CategoryPageContent = ({ hasEvents: initialHasEvents, category }: C
     }, [data?.events])
 
     // now we will create tables to show the exact user with necessary details;
-    const columns: ColumnDef<Event>[] = useMemo(() => [
-        {
-            accessorKey: "category",
-            header: "Category",
-            cell: () => <span>{category.name || "Uncategorized"}</span>
-        },
-        {
-            accessorKey: "createdAt",
-            header: ({ column }: { column: Column<Event> }) => {
-                return <Button
-                    variant={"ghost"}
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Date
-                    <ArrowUpDown className="ml-2 size-4" />
-                </Button>
+    const columns: ColumnDef<Event>[] = useMemo(
+        () => [
+            {
+                accessorKey: "category",
+                header: "Category",
+                cell: () => <span>{category.name || "Uncategorized"}</span>,
             },
-            cell: ({ row }: { row: Row<Event> }) => {
-                return new Date(row.getValue("createdAt")).toLocaleString()
-            }
-        },
-        ...(data?.events[0] ? Object.keys(data.events[0].fields as object).map((field) => ({
-            accessorFn: (row: Event) => (row.fields as Record<string, any>)[field],
-            header: field,
-            cell: ({ row }: { row: Row<Event> }) => (row.original.fields as Record<string, any>)[field] || "-"
-        })) : []),
-        {
-            accessorKey: "deliveryStatus",
-            header: "Delivery Status",
-            cell: ({ row }) => (
-                <span className={cn("px-2 py-1 rounded-full text-xs font-semibold", {
-                    "bg-green-100 text-green-800": row.getValue("deliveryStatus") === "DELIEVERED",
-                    "bg-red-100 text-red-800": row.getValue("deliveryStatus") === "FAILED",
-                    "bg-yellow-100 text-yellow-800": row.getValue("deliveryStatus") === "PENDING",
+            {
+                accessorKey: "createdAt",
+                header: ({ column }) => {
+                    return (
+                        <Button
+                            variant="ghost"
+                            onClick={() =>
+                                column.toggleSorting(column.getIsSorted() === "asc")
+                            }
+                        >
+                            Date
+                            <ArrowUpDown className="ml-2 size-4" />
+                        </Button>
+                    )
+                },
+                cell: ({ row }) => {
+                    return new Date(row.getValue("createdAt")).toLocaleString()
+                },
+            },
+            ...(data?.events[0]
+                ? Object.keys(data.events[0].fields as object).map((field) => ({
+                    accessorFn: (row: Event) =>
+                        (row.fields as Record<string, any>)[field],
+                    header: field,
+                    cell: ({ row }: { row: Row<Event> }) =>
+                        (row.original.fields as Record<string, any>)[field] || "-",
+                }))
+                : []),
+            {
+                accessorKey: "delieveryStatus",
+                header: "Delievery Status",
+                cell: ({ row }) => (
+                    <span
+                        className={cn("px-2 py-1 rounded-full text-xs font-semibold", {
+                            "bg-green-100 text-green-800":
+                                row.getValue("delieveryStatus") === "DELIVERED",
+                            "bg-red-100 text-red-800":
+                                row.getValue("delieveryStatus") === "FAILED",
+                            "bg-yellow-100 text-yellow-800":
+                                row.getValue("delieveryStatus") === "PENDING",
+                        })}
+                    >
+                        {row.getValue("delieveryStatus")}
+                    </span>
+                ),
+            },
+        ],
 
-                })}>
-                    {row.getValue("deliveryStatus")}
-                </span>
-            )
-        }
-    ], [category.name, data?.events])
+        [category.name, data?.events]
+    )
 
-    const [sorting, setSorting] = useState<SortingState>([]);
-    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
+    const [sorting, setSorting] = useState<SortingState>([])
+    const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
 
     const table = useReactTable({
         data: data?.events || [],
@@ -182,10 +209,8 @@ export const CategoryPageContent = ({ hasEvents: initialHasEvents, category }: C
             sorting,
             columnFilters,
             pagination,
-        }
-
+        },
     })
-
     if (!pollingData.hasEvents) {
         return <EmptyCategoryState categoryName={category.name} />
     }
