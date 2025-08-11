@@ -17,5 +17,9 @@ export const paymentRouter = router({
         console.log("checkout::", checkout)
 
         return c.json({ url: checkout.url });
+    }),
+    getUserPlan: privateProcedure.query(async ({ c, ctx }) => {
+        const { user } = ctx;
+        return c.json({ plan: user.plan });
     })
 })

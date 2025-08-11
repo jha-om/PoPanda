@@ -27,12 +27,3 @@ export const createCheckoutSession = async ({ userEmail, userId }: {
         throw new Error("failed to create checkout session")
     }
 }
-
-export const getCheckoutSession = async (checkoutId: string) => {
-    try {
-        return await polarAPI.checkouts.get({ id: checkoutId });
-    } catch (error) {
-        console.error("Error fetching checkout:", error);
-        return null;
-    }
-};

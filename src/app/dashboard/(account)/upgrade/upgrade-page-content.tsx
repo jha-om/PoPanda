@@ -18,6 +18,7 @@ export const UpgradePageContent = ({ plan }: { plan: Plan }) => {
         },
         onSuccess: ({ url }) => {
             if (url) {
+                console.log("url:::", url);
                 router.push(url);
             } else {
                 // Handle cases where the URL might be missing even on success
