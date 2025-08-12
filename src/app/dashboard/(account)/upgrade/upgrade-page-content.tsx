@@ -2,15 +2,15 @@
 
 import { Card } from "@/components/ui/card";
 import { client } from "@/lib/client";
-import { Plan } from "@prisma/client"
+import { Plan } from "@prisma/client";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { BarChart } from "lucide-react";
-import { useRouter } from "next/navigation"
 import { format } from "date-fns";
+import { BarChart } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export const UpgradePageContent = ({ plan }: { plan: Plan }) => {
     const router = useRouter();
-
+    
     const { mutate: createCheckoutSession } = useMutation({
         mutationFn: async () => {
             const res = await client.payment.createCheckoutSession.$post();
@@ -18,7 +18,6 @@ export const UpgradePageContent = ({ plan }: { plan: Plan }) => {
         },
         onSuccess: ({ url }) => {
             if (url) {
-                console.log("url:::", url);
                 router.push(url);
             } else {
                 // Handle cases where the URL might be missing even on success
@@ -40,6 +39,7 @@ export const UpgradePageContent = ({ plan }: { plan: Plan }) => {
         }
     })
 
+    console.log("data: usageData::", usageData);
 
     return (
         <div className="max-w-3xl flex flex-col gap-8">

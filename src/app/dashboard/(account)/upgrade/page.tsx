@@ -22,7 +22,7 @@ const Page = async () => {
     }
 
     return <DashboardPage title="Pro Membership">
-        <UpgradePageContent plan="FREE" />
+        <UpgradePageContent plan={user.plan ?? "FREE"} />
     </DashboardPage>
 }
 export default Page;
